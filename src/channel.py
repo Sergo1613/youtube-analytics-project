@@ -44,12 +44,6 @@ class Channel:
         return int(self.subscriber_count) <= int(other.subscriber_count)
 
 
-
-
-
-
-
-
     def print_info(self) -> None:
         """Выводит в консоль информацию о канале."""
         channel_info = self.youtube.channels().list(id=self._channel_id, part='snippet,statistics').execute()
