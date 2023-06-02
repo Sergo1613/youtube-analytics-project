@@ -9,14 +9,12 @@ class Video:
         self.video_id = video_id
         try:
             youtube = build('youtube', 'v3', developerKey="AIzaSyCiYdDqOKDUKPRnJF7023I4NwZGsCrQqpo")
-            video_response = youtube.videos().list(part='snippet,statistics,contentDetails,topicDetails',
-                                                   id=video_id
-                                                   ).execute()
-            if 'items' in video_response and len(video_response['items']) > 0:
-                self.video_title: str = video_response['items'][0]['snippet']['title']
-                self.view_count: int = video_response['items'][0]['statistics']['viewCount']
-                self.like_count: int = video_response['items'][0]['statistics']['likeCount']
-                self.comment_count: int = video_response['items'][0]['statistics']['commentCount']
+            video = youtube.captions().list(videoId=self.video_id, part='snippet').execute()
+            if 'items' in video_response and len(video['items']) > 0:
+                self.video_title: str = video['items'][0]['snippet']['title']
+                self.view_count: int = video['items'][0]['statistics']['viewCount']
+                self.like_count: int = video['items'][0]['statistics']['likeCount']
+                self.comment_count: int = video['items'][0]['statistics']['commentCount']
             else:
                 self.video_title = None
                 self.view_count = None
